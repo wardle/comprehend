@@ -19,7 +19,7 @@
 
 (defn ^:private entity->snomed [hermes {:keys [Text] :as entity}]
   (let [ecl (make-constraint entity)]
-    (vector entity (hermes/search hermes {:s Text :constraint ecl :max-hits 1 :fallback-fuzzy 2}))))
+    (hermes/search hermes {:s Text :constraint ecl :max-hits 1 :fallback-fuzzy 2})))
 
 (defn simple-parse
   "Parse free text for clinical conditions and medications."
