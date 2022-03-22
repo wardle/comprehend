@@ -3,13 +3,16 @@
  :deps    {org.clojure/clojure                 {:mvn/version "1.11.0-alpha2"}
            org.clojure/core.async              {:mvn/version "1.3.622"}
 
-           com.eldrix/hermes                   {:git/url "https://github.com/wardle/hermes.git"
-                                                :sha     "3ab0dabc655ed76e101cd0ade138c65d3fb4a74b"}
+           com.eldrix/hermes                   {:mvn/version "0.9.379"}
            com.cognitect.aws/api               {:mvn/version "0.8.524"}
            com.cognitect.aws/endpoints         {:mvn/version "1.1.12.69"}
            com.cognitect.aws/comprehendmedical {:mvn/version "811.2.889.0"}}
 
- :aliases {:test
+ :aliases {:build       {:deps       {io.github.clojure/tools.build {:git/tag "v0.8.1" :git/sha "7d40500"}
+                                      slipset/deps-deploy           {:mvn/version "RELEASE"}}
+                         :ns-default build}
+
+           :test
            {:extra-paths ["test/src" "test/resources"]
             :extra-deps  {io.github.cognitect-labs/test-runner {:git/sha "dd6da11611eeb87f08780a30ac8ea6012d4c05ce"}
                           ch.qos.logback/logback-classic       {:mvn/version "1.2.6"}}
@@ -48,9 +51,4 @@
 
            :lint/eastwood
            {:main-opts  ["-m" "eastwood.lint" {:source-paths ["src"]}]
-            :extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}}
-
-           :jar
-           {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
-            :exec-fn      hf.depstar/jar
-            :exec-args    {:jar "target/comprehend-lib.jar"}}}}
+            :extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}}}}
